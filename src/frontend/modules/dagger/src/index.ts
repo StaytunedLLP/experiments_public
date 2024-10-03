@@ -13,7 +13,14 @@
  * rest is a long description with more detail on the module's purpose or usage,
  * if appropriate. All modules should have a short description.
  */
-import { Container, dag, Directory, func, object } from "@dagger.io/dagger";
+import {
+  argument,
+  Container,
+  dag,
+  Directory,
+  func,
+  object,
+} from "@dagger.io/dagger";
 
 @object()
 class Modules {
@@ -24,5 +31,20 @@ class Modules {
   frontendContainerEcho(stringArg: string): Promise<string> {
     return dag.container().from("alpine:latest").withExec(["echo", stringArg])
       .stdout();
+  }
+
+  @func()
+  async runNode(
+    @argument({ defaultPath: "/src/frontend/" }) source: Directory,
+  ): Promise<string> {
+    return dag.container().from("node:latest")
+      .withDirectory("/src", source)
+      // change the working directory to /s``rc
+      .withWorkdir("/src")
+      // install deployctl
+      .withExec([
+        "node",
+        "src/hello.js",
+      ]).stdout();
   }
 }

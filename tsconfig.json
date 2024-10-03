@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "moduleResolution": "Node",
+        "experimentalDecorators": true,
+        "noEmit": false,
+        "rootDir": "./src",
+        "outDir": "./dist",
+    },
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/dagger/**"
+    ]
+}

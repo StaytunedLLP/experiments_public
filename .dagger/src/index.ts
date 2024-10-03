@@ -31,4 +31,21 @@ class DaggerTsMonorepo {
     console.log("backend : ", await backend);
     return frontend + backend;
   }
+
+  
+
+  /**
+   * Returns a container that echoes whatever string argument is provided
+   */
+  @func()
+  async runNode(): Promise<string> {
+    const frontend = dag.frontendmodules()
+      .runNode();
+
+    const backend = dag.backendmodules().runNode();
+    console.log("frontend : ", await frontend);
+
+    console.log("backend : ", await backend);
+    return frontend + backend;
+  }
 }
