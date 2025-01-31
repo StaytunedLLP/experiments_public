@@ -1,0 +1,9 @@
+{
+    "imports": {
+        "abc": "../abc/index.js"
+    },
+    "nodeModulesDir": "manual",
+    "tasks": {
+        "run" : "deno run --allow-read --unstable-detect-cjs main.ts "
+    }
+}
