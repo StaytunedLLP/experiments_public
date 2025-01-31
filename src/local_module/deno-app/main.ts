@@ -5,7 +5,11 @@
 // const { hello, processText } = require("../abc/index.js");
 
 
-import { hello, processText } from "abc"
+import * as p1 from "package1";
+import * as p2  from "package2";
 
-console.log( hello());
-console.log("Processing Text from abc:", processText("test string to process"));
+console.log( p1.hello());
+console.log(p1.processText("test string to process"));
+
+console.log(p2.hello());
+console.log(p2.processText("test string to process"));

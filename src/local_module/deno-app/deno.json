@@ -1,6 +1,7 @@
 {
     "imports": {
-        "abc": "../abc/index.js"
+        "package1": "../package1/index.js",
+        "package2": "../package2/dist/index.js"
     },
     "tasks": {
         "run" : "deno run --allow-read --unstable-detect-cjs main.ts "

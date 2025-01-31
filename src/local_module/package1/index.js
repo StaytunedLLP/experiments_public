@@ -2,7 +2,7 @@ const _ = require('lodash');
 const marked = require('marked');
 const uuid = require('uuid');
 function hello() {
-  return "Hello from abc package!" + uuid.v4();
+  return "Hello from package 1 !  " + uuid.v4();
 
 }
 

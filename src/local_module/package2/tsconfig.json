@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "target": "es2020", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+        "module": "commonjs", /* Specify what module code is generated. */
+        "declaration": true, /* Generate .d.ts files from TypeScript and also for other consumers in other package */
+        "outDir": "./dist", /* Specify an output folder for all emitted files. */
+        "rootDir": "./src", /* Specify the root folder for all input files. */
+        "strict": true, /* Enable all strict type-checking options. */
+        "esModuleInterop": true, /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables the importing of modules with commonjs from ES modules*/
+        "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+        "forceConsistentCasingInFileNames": true /* Disallow inconsistences in casing of imported files*/
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
+}
