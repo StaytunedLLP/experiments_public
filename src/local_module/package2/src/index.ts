@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
-import * as _ from 'lodash';
 import { marked } from 'marked';
-
+import chalk from 'chalk';
 
 function hello(): string {
-    return "Hello from package 2 !" + uuidv4();
+    return chalk.green(`Hello from package2 with `) + chalk.red(uuidv4());
 }
 
 function processText(text: string){
-    const upper = _.upperCase(text);
-    return marked.parse(upper);
+    const upper = text.toUpperCase();
+    const markedText = marked.parse(upper);
+    return markedText;
 }
 
 export { hello, processText };

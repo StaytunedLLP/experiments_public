@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "es2020", /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
-        "module": "commonjs", /* Specify what module code is generated. */
+        "module": "NodeNext", /* Specify what module code is generated. */
         "declaration": true, /* Generate .d.ts files from TypeScript and also for other consumers in other package */
         "outDir": "./dist", /* Specify an output folder for all emitted files. */
         "rootDir": "./src", /* Specify the root folder for all input files. */
