@@ -9,7 +9,7 @@ steps to set up the workspaces:
 
    ```json
    {
-     "workspaces": ["package2"]
+     "workspaces": ["package2","package1"]
    }
    ```
 
@@ -39,7 +39,9 @@ To set up and run the project, follow these steps:
    `deno-app` directory, install dependencies, and start the project:
 
    ```bash
-   cd deno-app && deno install && deno task run
+   cd deno-app && deno install && deno task run && cd ..
    ```
+
+These configurations ensure that the dependencies and modules for both `package1` and `package2` are correctly managed and the Deno application is able to access them.
 
 This will start the Deno application.
