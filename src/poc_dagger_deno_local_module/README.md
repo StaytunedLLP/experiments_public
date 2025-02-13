@@ -1,47 +1,42 @@
+# Deno Multi-Root Workspace
 
-## Workspace Setup
+This project demonstrates how to use multiple Node.js packages within a Deno workspace.
 
-The project uses workspaces to manage dependencies and modules. Here are the
-steps to set up the workspaces:
+## Project Structure
 
-1. Create a `package.json` file in the root directory with the following
-   content:
+The workspace contains three main components:
 
-   ```json
-   {
-     "workspaces": ["package2","package1"]
-   }
-   ```
+1. **Package 1**
+   - Implemented in JavaScript
+   - Uses Node.js
+   - ESM module format
 
-2. Create a `deno.json` file in the root directory with the following content:
+2. **Package 2**
+   - Implemented in TypeScript
+   - Uses Node.js
+   - ESM module format
 
-   ```json
-   {
-     "workspace": ["deno-app"]
-   }
-   ```
+3. **Deno App**
+   - Main application
+   - Imports both packages locally
+   - Configuration in `deno_app/deno.json`
 
-These configurations ensure that the dependencies and modules are correctly
-managed across the project.
+## Local Module Usage
 
-## Project Setup Instructions
+To use the local modules in the Deno application, add them to the imports section in `deno_app/deno.json`:
 
-To set up and run the project, follow these steps:
+```json
+{
+  "imports": {
+    "package1": "../package1/mod.js",
+    "package2": "../package2/mod.ts"
+  }
+}
+```
 
-1. Navigate to the `package2` directory, install dependencies, and build the
-   project:
+## Getting Started
 
-   ```bash
-   cd package2 && npm install && npm run build && cd ..
-   ```
-
-2. Once the dependencies are installed and the project is built, navigate to the
-   `deno-app` directory, install dependencies, and start the project:
-
-   ```bash
-   cd deno-app && deno install && deno task run && cd ..
-   ```
-
-These configurations ensure that the dependencies and modules for both `package1` and `package2` are correctly managed and the Deno application is able to access them.
-
-This will start the Deno application.
+1. Ensure you have both Node.js and Deno installed
+2. Clone this repository
+3. Navigate to the deno_app directory
+4. Run the application using `deno task run`.

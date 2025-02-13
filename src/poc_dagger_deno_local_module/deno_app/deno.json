@@ -1,0 +1,8 @@
+{
+  "name": "deno_app",
+  "exports": "./mod.ts",
+  "imports": {
+    "package1": "../package1/index.js",
+    "package2": "../package2/dist/index.js"
+  }
+}

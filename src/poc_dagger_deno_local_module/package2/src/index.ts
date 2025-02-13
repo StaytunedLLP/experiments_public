@@ -6,7 +6,7 @@ function hello(): string {
     return chalk.green(`Hello from package2 with `) + chalk.red(uuidv4());
 }
 
-function processText(text: string){
+function processText(text: string) {
     const upper = text.toUpperCase();
     const markedText = marked.parse(upper);
     return markedText;

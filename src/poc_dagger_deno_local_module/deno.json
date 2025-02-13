@@ -1,3 +1,7 @@
 {
-    "workspace":["deno-app"]
+  "workspace": ["deno_app", "package1", "package2"],
+  "tasks": {
+    "run_deno_app": "cd package2 && deno task build && cd .. && cd deno_app && deno run -A main.ts"
+  },
+  "nodeModulesDir": "auto"
 }
