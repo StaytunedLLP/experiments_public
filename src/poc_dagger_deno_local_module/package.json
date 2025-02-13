@@ -1,3 +1,3 @@
 {
-    "workspaces":["package2"]
+    "workspaces":["package2","package1"]
 }
