@@ -1,3 +1,0 @@
-#!/bin/sh
-.gh-workflows/hooks/fmt.sh
-.gh-workflows/hooks/lint.sh
