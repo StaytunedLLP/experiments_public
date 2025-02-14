@@ -1,0 +1,8 @@
+{
+  "tasks": {
+    "start": "OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318 OTEL_EXPORTER_OTLP_PROTOCOL=http/json OTEL_DENO_CONSOLE=true OTEL_DENO=true deno run --allow-all --unstable-otel main.ts"
+  },
+  "imports": {
+    "@opentelemetry/api": "npm:@opentelemetry/api"
+  }
+}
