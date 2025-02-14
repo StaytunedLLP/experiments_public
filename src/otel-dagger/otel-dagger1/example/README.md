@@ -33,7 +33,7 @@ Open a terminal and navigate to the project directory `example`.  Then, run the 
 deno run --allow-net getData.ts
 ```
 
-This command starts the OTLP collector on `http://localhost:8800`. The `--allow-net` flag is necessary to allow the application to listen for incoming network connections.  You should see a message in the console indicating that the server is running on port 8800. This server simply receives the OTLP/JSON data and logs it to the console.
+This command starts the OTLP collector on `http://localhost:4318`. The `--allow-net` flag is necessary to allow the application to listen for incoming network connections.  You should see a message in the console indicating that the server is running on port 4318. This server simply receives the OTLP/JSON data and logs it to the console.
 
 **Why this is necessary:** The `getData.ts` server *must* be running *before* you start the `main.ts` server. This ensures that when `main.ts` starts generating traces, there's a collector available to receive them. If the collector isn't running, the traces from `main.ts` will be lost.
 
@@ -47,7 +47,7 @@ deno task start
 
 This command uses the `start` task defined in `deno.json`. The task sets several environment variables crucial for OpenTelemetry configuration and then executes the `main.ts` file.  Specifically:
 
-* `OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:8800`: Configures the OTLP exporter to send data to the collector running on `localhost:8800`.
+* `OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318`: Configures the OTLP exporter to send data to the collector running on `localhost:4318`.
 * `OTEL_EXPORTER_OTLP_PROTOCOL=http/json`: Specifies that the OTLP data should be sent using the HTTP/JSON protocol. (JSON format)
 * `OTEL_DENO_CONSOLE=true`:  (Probably not useful)Enables console exporter, if supported by the OpenTelemetry SDK
 * `OTEL_DENO=true`: Enables automatic instrumentation for Deno runtime.
@@ -57,7 +57,7 @@ This command uses the `start` task defined in `deno.json`. The task sets several
 
 ### 3. Generate Dice Rolls
 
-With both servers running, open your web browser and navigate to `http://localhost:8000`.  This will send a request to the `main.ts` server, which will generate a set of dice rolls and return them as a JSON response in your browser.
+With both servers running, open your web browser and navigate to `http://localhost:8800`.  This will send a request to the `main.ts` server, which will generate a set of dice rolls and return them as a JSON response in your browser.
 
 ### 4. Observe the Logs
 
