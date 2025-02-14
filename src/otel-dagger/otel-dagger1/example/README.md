@@ -41,13 +41,16 @@ This command starts the OTLP collector on `http://localhost:4318`. The `--allow-
 
 Open a *new* terminal window and navigate to the project directory `example`.  Run the following command:
 
-```bash
+```bash  
+export OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+export OTEL_DENO_CONSOLE=true
+export OTEL_DENO=true
 deno task start
 ```
 
 This command uses the `start` task defined in `deno.json`. The task sets several environment variables crucial for OpenTelemetry configuration and then executes the `main.ts` file.  Specifically:
 
-* `OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318`: Configures the OTLP exporter to send data to the collector running on `localhost:4318`.
+* `OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4318`: Configures the OTLP exporter to send data to the collector running on `localhost:4318`.(Defaut url is `http://localhost:4317` thats why not mentioned in exports)
 * `OTEL_EXPORTER_OTLP_PROTOCOL=http/json`: Specifies that the OTLP data should be sent using the HTTP/JSON protocol. (JSON format)
 * `OTEL_DENO_CONSOLE=true`:  (Probably not useful)Enables console exporter, if supported by the OpenTelemetry SDK
 * `OTEL_DENO=true`: Enables automatic instrumentation for Deno runtime.
