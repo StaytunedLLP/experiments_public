@@ -1,8 +1,0 @@
-{
-  "tasks": {
-    "start": "deno run --allow-all --unstable-otel main.ts"
-  },
-  "imports": {
-    "@opentelemetry/api": "npm:@opentelemetry/api"
-  }
-}

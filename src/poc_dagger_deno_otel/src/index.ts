@@ -10,7 +10,7 @@ import {
 @object()
 export class OtelDagger {
   @func()
-  baseService(source: Directory): Promise<Service> {
+  denoRunWithEnv(source: Directory): Promise<Service> {
     const service = dag
       .container()
       .from("denoland/deno:latest")
@@ -25,7 +25,20 @@ export class OtelDagger {
     return service;
   }
 
-    @func()
+  @func()
+  denoRunWithoutEnv(source: Directory): Promise<Service> {
+    const service = dag
+      .container()
+      .from("denoland/deno:latest")
+      .withDirectory("/app", source)
+      .withWorkdir("/app")
+      .withExec(["deno", "task", "start-with-env"])
+      .withExposedPort(8800)
+      .asService();
+    return service;
+  }
+
+  @func()
   async getData(source: Directory): Promise<Service> {
     const service = dag
       .container()
