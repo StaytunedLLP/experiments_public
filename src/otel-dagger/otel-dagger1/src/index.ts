@@ -24,4 +24,17 @@ export class OtelDagger {
       .asService();
     return service;
   }
+
+    @func()
+  async getData(source: Directory): Promise<Service> {
+    const service = dag
+      .container()
+      .from("denoland/deno:latest")
+      .withDirectory("/app", source)
+      .withWorkdir("/app")
+      .withExec(["deno", "run", "-A", "getData.ts"])
+      .withExposedPort(4318)
+      .asService();
+    return service;
+  }
 }
