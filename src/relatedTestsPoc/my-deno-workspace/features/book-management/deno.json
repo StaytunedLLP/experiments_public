@@ -1,0 +1,4 @@
+{
+  "name": "@workspace/book-management",
+  "exports": "./mod.ts"
+}

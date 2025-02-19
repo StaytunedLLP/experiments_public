@@ -1,0 +1,4 @@
+{
+  "name": "@workspace/category-management",
+  "exports": "./mod.ts"
+}

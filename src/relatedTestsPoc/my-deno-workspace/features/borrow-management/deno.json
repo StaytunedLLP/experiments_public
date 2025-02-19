@@ -1,0 +1,4 @@
+{
+  "name": "@workspace/borrow-management",
+  "exports": "./mod.ts"
+}
