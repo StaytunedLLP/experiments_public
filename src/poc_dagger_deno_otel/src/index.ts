@@ -16,7 +16,7 @@ export class OtelDagger {
       .from("denoland/deno:latest")
       .withDirectory("/app", source)
       .withWorkdir("/app")
-      .withEnvVariable("OTEL_EXPORTER_OTLP_PROTOCOL", "http/json")
+      // .withEnvVariable("OTEL_EXPORTER_OTLP_PROTOCOL", "http/json")
       .withEnvVariable("OTEL_DENO", "true")
       .withEnvVariable("OTEL_DENO_CONSOLE", "true")
       .withExec(["deno", "task", "start"])
@@ -32,6 +32,7 @@ export class OtelDagger {
       .from("denoland/deno:latest")
       .withDirectory("/app", source)
       .withWorkdir("/app")
+      .withEnvVariable("OTEL_DENO", "true")
       .withExec(["deno", "task", "start-with-env"])
       .withExposedPort(8800)
       .asService();
