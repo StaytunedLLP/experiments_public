@@ -1,0 +1,7 @@
+{
+  "name": "@workspace/return-management",
+  "exports": "./mod.ts",
+  "imports": {
+    "@workspace/borrow-management": "../borrow-management/mod.ts"
+  }
+}
