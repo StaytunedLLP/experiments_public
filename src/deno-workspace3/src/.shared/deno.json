@@ -1,0 +1,6 @@
+{
+    "name" : "@src/shared",
+    "exports":{
+        ".": "./mod.ts"
+    }
+}
