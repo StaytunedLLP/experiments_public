@@ -1,7 +1,0 @@
-{
-    "workspace": [
-        "./fd_calculator/*/*",
-        "./fd_calculator2/*/*",
-        "./.shared/*/*"
-    ]
-}

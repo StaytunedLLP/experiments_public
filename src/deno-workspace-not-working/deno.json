@@ -1,0 +1,7 @@
+{
+    "workspace": [
+        "./src/fd_calculator/*/*",
+        "./src/fd_calculator2/*/*",
+        "./src/.shared/*/*"
+    ]
+}
