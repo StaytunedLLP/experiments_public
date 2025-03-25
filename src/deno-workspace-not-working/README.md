@@ -52,39 +52,39 @@ This `deno-workspace-not-working` project builds upon the structure of `deno-wor
     |-- fd_calculator
     |   |-- deno.json (deno.json)
     |   |-- fe_complex
-    |   |   |-- **deno.json (deno.json)  // when added this fails**
+    |   |   |-- **deno.json (deno.json)  // fails when adding this**
     |   |   |-- mod.ts
     |   |   |-- sy_division
-    |   |   |   |-- **deno.json (deno.json)  // when added this fails**
+    |   |   |   |-- **deno.json (deno.json)  // fails when adding this**
     |   |   |   |-- division.ts
     |   |   |   `-- mod.ts
     |   |   `-- sy_multiplication
-    |   |       |-- **deno.json (deno.json)  // when added this fails**
+    |   |       |-- **deno.json (deno.json)  // fails when adding this**
     |   |       |-- mod.ts
     |   |       `-- multiplication.ts
     |   |-- fe_simple
-    |   |   |-- **deno.json (deno.json)  // when added this fails**
+    |   |   |-- **deno.json (deno.json)  // fails when adding this**
     |   |   |-- mod.ts
     |   |   |-- sy_addition
     |   |   |   |-- addition.ts
-    |   |   |   |-- **deno.json (deno.json)  // when added this fails**
+    |   |   |   |-- **deno.json (deno.json)  // fails when adding this**
     |   |   |   `-- mod.ts
     |   |   `-- sy_subtraction
-    |   |       |-- **deno.json (deno.json)  // when added this fails**
+    |   |       |-- **deno.json (deno.json)  // fails when adding this**
     |   |       |-- mod.ts
     |   |       `-- subtraction.ts
     |   `-- mod.ts
     |-- fd_calculator2
     |   |-- deno.json (deno.json)
     |   |-- fe_complex
-    |   |   |-- **deno.json (deno.json)  // when added this fails**
+    |   |   |-- **deno.json (deno.json)  // fails when adding this**
     |   |   |-- mod.ts
     |   |   |-- sy_add_and_subtract
     |   |   |   |-- add_and_subtract.ts
-    |   |   |   |-- **deno.json (deno.json)  // when added this fails**
+    |   |   |   |-- **deno.json (deno.json)  // fails when adding this**
     |   |   |   `-- mod.ts
     |   |   `-- sy_multiply_and_divide
-    |   |       |-- **deno.json (deno.json)  // when added this fails**
+    |   |       |-- **deno.json (deno.json)  // fails when adding this**
     |   |       |-- mod.ts
     |   |       `-- multiply_and_divide.ts
     |   `-- mod.ts
