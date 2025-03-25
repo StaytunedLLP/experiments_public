@@ -3,8 +3,8 @@ import { subtract } from "@src/fd_calculator/fe_simple/sy_subtraction";
 
 //#region Combined Operations
 export const addAndSubtract = (
-    a: number, 
-    b: number, 
+    a: number,
+    b: number,
     c: number
 ): number | undefined => {
     const addResult = add(a, b);

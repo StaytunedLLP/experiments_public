@@ -1,5 +1,4 @@
-import { CalculatorService } from "@src/shared";
-
+import { CalculatorService } from '../../../.shared/mod.ts';
 export const add = (
     a: number,
     b: number,

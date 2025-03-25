@@ -2,8 +2,6 @@
   "name": "@src/fd_calculator",
   "exports": {
     ".": "./mod.ts",
-    "./fe_basic_arithmetic": "./fe_basic_arithmetic/mod.ts",
-    "./fe_basic_arithmetic/sy_operations": "./fe_basic_arithmetic/sy_operations/mod.ts",
     "./fe_complex": "./fe_complex/mod.ts",
     "./fe_complex/sy_division": "./fe_complex/sy_division/mod.ts",
     "./fe_complex/sy_multiplication": "./fe_complex/sy_multiplication/mod.ts",
