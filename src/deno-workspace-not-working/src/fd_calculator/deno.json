@@ -1,5 +1,6 @@
 {
   "name": "@src/fd_calculator",
+  "version": "0.1.0",
   "exports": {
     ".": "./mod.ts",
     "./fe_complex": "./fe_complex/mod.ts",
