@@ -1,0 +1,6 @@
+{
+  "name": "@field/fd_calculator2/.shared",
+  "exports": {
+    ".": "./mod.ts"
+  }
+}
