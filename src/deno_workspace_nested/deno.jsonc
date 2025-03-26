@@ -1,0 +1,52 @@
+// dw_nested/deno.json
+{
+  "workspace": [
+    // Shared remains a member
+    "./src/shared",
+    // Domain One Features & Stories
+    "./src/domain_one/feature_a/",
+    "./src/domain_one/feature_a/story_x",
+    "./src/domain_one/feature_a/story_y",
+    "./src/domain_one/feature_b",
+    "./src/domain_one/feature_b/story_x",
+    "./src/domain_one/feature_b/story_y",
+    // Domain Two Features & Stories
+    "./src/domain_two/feature_a",
+    "./src/domain_two/feature_a/story_x",
+    "./src/domain_two/feature_a/story_y",
+    "./src/domain_two/feature_b",
+    "./src/domain_two/feature_b/story_x",
+    "./src/domain_two/feature_b/story_y"
+  ],
+  "imports": {
+    // Shared mapping
+    "@my-app/shared/": "./src/shared/",
+    // Domain One mappings (granular)
+    "@my-app/domain_one/feature_a/": "./src/domain_one/feature_a/",
+    "@my-app/domain_one/feature_a/story_x/": "./src/domain_one/feature_a/story_x/",
+    "@my-app/domain_one/feature_a/story_y/": "./src/domain_one/feature_a/story_y/",
+    "@my-app/domain_one/feature_b/": "./src/domain_one/feature_b/",
+    "@my-app/domain_one/feature_b/story_x/": "./src/domain_one/feature_b/story_x/",
+    "@my-app/domain_one/feature_b/story_y/": "./src/domain_one/feature_b/story_y/",
+    // Domain Two mappings (granular)
+    "@my-app/domain_two/feature_a/": "./src/domain_two/feature_a/",
+    "@my-app/domain_two/feature_a/story_x/": "./src/domain_two/feature_a/story_x/",
+    "@my-app/domain_two/feature_a/story_y/": "./src/domain_two/feature_a/story_y/",
+    "@my-app/domain_two/feature_b/": "./src/domain_two/feature_b/",
+    "@my-app/domain_two/feature_b/story_x/": "./src/domain_two/feature_b/story_x/",
+    "@my-app/domain_two/feature_b/story_y/": "./src/domain_two/feature_b/story_y/"
+  },
+  "tasks": {
+    "start": "deno run --allow-read main.ts"
+  },
+  "fmt": {
+    "semiColons": false
+  },
+  "lint": {
+    "rules": {
+      "exclude": [
+        "no-unused-vars"
+      ]
+    }
+  }
+}

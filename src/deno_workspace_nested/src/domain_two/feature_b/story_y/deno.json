@@ -1,0 +1,7 @@
+{
+  "name": "@my-app/domain_two/feature_b/story_y",
+  "version": "1.0.0",
+  "exports": {
+    "./generate_by.ts": "./generate_by.ts"
+  }
+}

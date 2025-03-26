@@ -1,0 +1,7 @@
+{
+  "name": "@my-app/domain_one/feature_a/story_y",
+  "version": "1.0.0",
+  "exports": {
+    "./process_y.ts": "./process_y.ts"
+  }
+}

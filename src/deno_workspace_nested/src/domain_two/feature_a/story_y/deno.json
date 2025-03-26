@@ -1,0 +1,7 @@
+{
+  "name": "@my-app/domain_two/feature_a/story_y",
+  "version": "1.0.0",
+  "exports": {
+    "./calculate_ay.ts": "./calculate_ay.ts"
+  }
+}
