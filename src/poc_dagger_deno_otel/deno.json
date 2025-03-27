@@ -8,7 +8,7 @@
     "@dagger.io/dagger/telemetry": "./sdk/src/telemetry/index.ts"
   },
   "workspace": [
-    "./*"
+    "./sdk"
   ],
   "unstable": [
     "bare-node-builtins",
