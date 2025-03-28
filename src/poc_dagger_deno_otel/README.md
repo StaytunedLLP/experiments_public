@@ -19,50 +19,26 @@ For local development instructions using Deno, see
 
 ## Current Issues
 
-### Issue 1: Traces Not Reaching OTEL Collector
+### Issue 1: Localhost Setup Issue
 
-When setting OTEL environment variables in `deno.json`, traces are not being
-captured by the Dagger OTEL collector.
-
-**Steps to Reproduce:**
-
-1. Navigate to `src/poc_dagger_deno_otel`
-2. Start the OTLP collector:
-
-```bash
-dagger call get-data --source=example up
-```
-
-3. In a new terminal, start the dice rolling service:
-
-```bash
-dagger call deno-run-without-env --source=example up
-```
-
-[View Trace](https://v3.dagger.cloud/Staytuned/traces/4cb769f781c7615e465774cad57a32d4)
-
-Note: We've implemented verification for log capture on the specified port, but
-no events are being received.
-
-### Issue 2: Dagger Command Failure with OTEL Environment Variables
-
-When attempting to run Dagger with environment variables passed via
-`withEnvVariable`, the command fails.
+When running the command `dagger call deno-run-without-env --source=example up`, the localhost environment is not being set up properly. This prevents the application from running correctly.
 
 **Steps to Reproduce:**
 
 1. Navigate to `src/poc_dagger_deno_otel`
 2. Run:
-   ```bash
-   dagger call deno-run-with-env --source=example up
-   ```
 
-**Error Output:**
-
-```
-Error: Post "http://dagger/query": command [docker exec -i dagger-engine-v0.15.3 buildctl dial-stdio] 
-has exited with exit status 137, make sure the URL is valid, and Docker 18.09 or later is installed 
-on the remote host: stderr=
+```bash
+dagger call deno-run-without-env --source=../../example up
 ```
 
-[View Trace](https://dagger.cloud/Staytuned/traces/02931917a9c04c3909d25e25bb41ac5b)
+**Expected Behavior:**
+
+- Localhost should be properly configured
+- Application should start and be accessible
+
+**Current Behavior:**
+
+- Localhost setup fails
+- Application cannot be accessed
+
