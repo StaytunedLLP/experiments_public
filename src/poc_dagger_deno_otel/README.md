@@ -21,7 +21,7 @@ For local development instructions using Deno, see
 
 ### Issue 1: Localhost Setup Issue
 
-When running the command `dagger call deno-run-without-env --source=example up`, the localhost environment is not being set up properly. This prevents the application from running correctly.
+When running the command `dagger call`, the localhost environment is not being set up properly. This prevents the application from running correctly.
 
 **Steps to Reproduce:**
 

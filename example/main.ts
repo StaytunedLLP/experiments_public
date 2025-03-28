@@ -32,4 +32,5 @@ const handler = async (req: Request): Promise<Response> => {
   return new Response("Not found", { status: 404 });
 };
 
+console.log("Listening on http://localhost:8000");
 Deno.serve({ port }, handler);
