@@ -29,7 +29,7 @@ When running the command `dagger call deno-run-without-env --source=example up`,
 2. Run:
 
 ```bash
-dagger call deno-run-without-env --source=../../example up
+dagger call deno-run-with-env --source=../../example up
 ```
 
 **Expected Behavior:**
