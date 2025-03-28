@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "start": "deno run --allow-all --unstable-otel main.ts",
+    "start": "deno run --allow-all server.ts",
     "start-with-env": "OTEL_DENO=true deno run --allow-all --unstable-otel main.ts"
   },
   "imports": {

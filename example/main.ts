@@ -1,5 +1,5 @@
 /*app.ts*/
-const PORT: number = 8800;
+const port: number = 8000;
 import { type Span, trace } from "@opentelemetry/api";
 
 const tracer = trace.getTracer("dice-lib");
@@ -7,7 +7,11 @@ const tracer = trace.getTracer("dice-lib");
 const rollOnce = (min: number, max: number): number =>
   Math.floor(Math.random() * (max - min + 1) + min);
 
-export const rollTheDice = (rolls: number, min: number, max: number): number[] =>
+export const rollTheDice = (
+  rolls: number,
+  min: number,
+  max: number,
+): number[] =>
   tracer.startActiveSpan("rollTheDice", (span: Span) => {
     const result: number[] = [];
     span.setAttribute("rolls", rolls);
@@ -28,4 +32,4 @@ const handler = async (req: Request): Promise<Response> => {
   return new Response("Not found", { status: 404 });
 };
 
-Deno.serve({ port: PORT }, handler);
+Deno.serve({ port }, handler);

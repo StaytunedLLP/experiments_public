@@ -14,6 +14,7 @@
  * if appropriate. All modules should have a short description.
  */
 import {
+  argument,
   Container,
   dag,
   Directory,
@@ -32,13 +33,15 @@ export class PocDaggerDenoOtel {
     return dag.container().from("alpine:latest").withExec(["echo", stringArg]);
   }
   @func()
-  async denoRunWithEnv(source: Directory): Promise<Service> {
+  async denoRunWithEnv(
+    @argument({ defaultPath: "../../example" }) source: Directory,
+  ): Promise<Service> {
     return dag.container().from("denoland/deno:latest")
       .withDirectory("/app", source)
       .withWorkdir("/app")
       .withEnvVariable("OTEL_DENO", "true")
       .withExec(["deno", "task", "start-with-env"])
-      .withExposedPort(8800)
+      .withExposedPort(8000)
       .asService();
   }
 
