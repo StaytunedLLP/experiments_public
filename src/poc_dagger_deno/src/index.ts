@@ -33,14 +33,13 @@ export class PocDaggerDenoOtel {
     return dag.container().from("alpine:latest").withExec(["echo", stringArg]);
   }
   @func()
-  async denoRunWithEnv(
+  async denoRun(
     @argument({ defaultPath: "../../example" }) source: Directory,
   ): Promise<Service> {
     return dag.container().from("denoland/deno:latest")
       .withDirectory("/app", source)
       .withWorkdir("/app")
-      .withEnvVariable("OTEL_DENO", "true")
-      .withExec(["deno", "task", "start-with-env"])
+      .withExec(["deno", "run" , "-A", "server.ts"])
       .withExposedPort(8000)
       .asService();
   }
