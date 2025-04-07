@@ -1,0 +1,8 @@
+{
+  "name": "my_module",
+  "engineVersion": "v0.18.2",
+  "sdk": {
+    "source": "typescript"
+  },
+  "source": ".dagger"
+}

@@ -1,0 +1,7 @@
+{
+  "name": "poc_dagger_deno_otel_nodesdk",
+  "engineVersion": "v0.18.1",
+  "sdk": {
+    "source": "typescript"
+  }
+}
