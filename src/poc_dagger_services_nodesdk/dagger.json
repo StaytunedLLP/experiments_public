@@ -1,5 +1,5 @@
 {
-  "name": "my_module",
+  "name": "poc_services",
   "engineVersion": "v0.18.2",
   "sdk": {
     "source": "typescript"
