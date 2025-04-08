@@ -50,6 +50,12 @@ async function doWork() {
 }
 
 async function main() {
+  console.log(
+    `[app.ts] Received OTEL_EXPORTER_OTLP_ENDPOINT: ${
+      Deno.env.get("OTEL_EXPORTER_OTLP_ENDPOINT")
+    }`,
+  );
+
   // No OTEL setup needed here - Deno runtime handles it!
   console.log("Starting application work (with Deno native OTEL)...");
   console.log(`Deno version: ${Deno.version.deno}`);
@@ -68,6 +74,11 @@ async function main() {
   // Console logs below might also be captured as OTEL logs by the runtime
   console.log("Application work finished.");
   console.log("Deno runtime will handle OTEL shutdown implicitly on exit.");
+
+  const delayMs = 2000; // 2 seconds - adjust if needed
+  console.log(`Adding ${delayMs}ms delay before exit to allow OTEL flush...`);
+  await new Promise((resolve) => setTimeout(resolve, delayMs));
+  console.log("Delay finished. Exiting.");
   // No explicit provider.shutdown() needed
 }
 

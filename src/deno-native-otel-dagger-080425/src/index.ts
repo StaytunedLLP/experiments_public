@@ -72,10 +72,11 @@ export class Test {
     // Container configured to run the app with native OTEL
     const runner: Container = base
       .withEnvVariable("OTEL_DENO", "true") // Enable Deno native OTEL
-      .withEnvVariable("OTEL_SERVICE_NAME", serviceName).terminal() // Set OTEL service name
+      .withEnvVariable("OTEL_EXPORTER_OTLP_PROTOCOL", "http/json")
+      .withEnvVariable("OTEL_SERVICE_NAME", serviceName) // Set OTEL service name
       // Dagger automatically injects OTEL_EXPORTER_OTLP_ENDPOINT into withExec
       // Add any other OTEL_ env vars here if needed (e.g., OTEL_RESOURCE_ATTRIBUTES)
-
+      // .terminal()
       .withExec([
         "deno",
         "run",
