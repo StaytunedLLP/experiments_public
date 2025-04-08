@@ -1,7 +1,11 @@
 {
   "tasks": {
     "start": "deno run --allow-all server.ts",
-    "start-with-env": "OTEL_DENO=true deno run --allow-all --unstable-otel main.ts"
+    "start-with-env": "OTEL_DENO=true deno run --allow-all --unstable-otel main.ts",
+    "dev": "deno run --allow-env --allow-read main.ts",
+    "dagger:run-app": "dagger call run-app-with-trace",
+    "jaeger": "docker run --rm --name jaeger -p 16686:16686 -p 4318:4318 jaegertracing/all-in-one:latest",
+    "dagger:serve": "cd ../poc_dagger_services_denosdk && dagger call run-native-server up --ports 8000:8000"
   },
   "imports": {
     "@opentelemetry/api": "npm:@opentelemetry/api"
