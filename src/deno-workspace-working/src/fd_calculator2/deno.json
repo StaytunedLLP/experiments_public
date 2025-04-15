@@ -1,9 +1,0 @@
-{
-  "name": "@src/fd_calculator2",
-  "exports": {
-    ".": "./mod.ts",
-    "./fe_complex": "./fe_complex/mod.ts",
-    "./fe_complex/sy_add_and_subtract": "./fe_complex/sy_add_and_subtract/mod.ts",
-    "./fe_complex/sy_multiply_and_divide": "./fe_complex/sy_multiply_and_divide/mod.ts"
-  }
-}

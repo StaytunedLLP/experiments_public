@@ -2,7 +2,9 @@
 {
   "workspace": [
     // Shared remains a member
-    "./src/domain_two_wo_fresh/"
+    "./src/*" // NOT WORKING
+    // ,"./src/domain_one_with_fresh", // WORKING
+    // "./src/domain_two_wo_fresh" // WORKING
   ],
   "imports": {
     // Shared mapping
@@ -15,7 +17,7 @@
     "@repo/": "./src/"
   },
   "tasks": {
-    "start": "deno run --allow-read main.ts"
+    "start": "deno run --allow-read --allow-net --allow-env main.ts"
   },
   "fmt": {
     "semiColons": false
