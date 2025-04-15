@@ -1,10 +1,11 @@
 
 
-import sharedConfigIntro from "@repo/_shared/domain_one/fresh.config.ts"
-import sharedManifestIntro from "@repo/_shared/domain_one/fresh.gen.ts"
+import sharedConfigIntro from "@repo/domain_one_with_fresh/fresh.config.ts"
+import sharedManifestIntro from "@repo/domain_one_with_fresh/fresh.gen.ts"
+import App from "@repo/domain_two_wo_fresh/index.ts"
 import { createHandler, type ServeHandlerInfo } from "$fresh/server.ts";
 
-
+console.log("Running wo fresh function from domain two...", App());
 const handlerIntroDomain = createHandler(
     { ...sharedManifestIntro },
     { ...sharedConfigIntro },
@@ -12,10 +13,6 @@ const handlerIntroDomain = createHandler(
 
 //#region Handler Definitions
 
-const productionHandlers = {
-    "intro.staytuned.website": handlerIntroDomain,
-    // "docs.staytuned.website": handlerDomain2Domain,
-};
 
 // "blog.staytuned.website": handlerBlogDomain,
 const developmentHandlers = {
@@ -109,7 +106,7 @@ const addCorsHeaders = (
  * @param {number} options.port - The port number on which the server will listen.
  * @param {Function} handler - The request handler function.
  */
-Deno.serve({ port: 5000 }, async (req, info) => {
+Deno.serve({}, async (req, info) => {
     const corsResponse = handleCors(req);
     if (corsResponse) return corsResponse;
 

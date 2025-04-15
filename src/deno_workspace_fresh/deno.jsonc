@@ -2,11 +2,7 @@
 {
   "workspace": [
     // Shared remains a member
-    "./src/*", // field
-    "./src/*/*", // feature
-    "./src/*/*/*", // story
-    "./src/*/*/*/*", // blocks
-    "./src/*/*/*/*/*" // blocks inside blocks
+    "./src/domain_two_wo_fresh/"
   ],
   "imports": {
     // Shared mapping
