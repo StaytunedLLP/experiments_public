@@ -1,0 +1,7 @@
+{
+  "name": "@my-app/shared",
+  "version": "0.1.0",
+  "exports": {
+    "./utils/common_helper.ts": "./utils/common_helper.ts"
+  }
+}
