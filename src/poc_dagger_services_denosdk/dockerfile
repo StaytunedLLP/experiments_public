@@ -1,0 +1,11 @@
+FROM denoland/deno:latest
+
+WORKDIR /app
+
+# Copy only necessary files
+COPY deno.json .
+COPY main.ts .
+
+WORKDIR /app/
+CMD ["deno", "run", "--watch" , "-A", "main.ts"]
+

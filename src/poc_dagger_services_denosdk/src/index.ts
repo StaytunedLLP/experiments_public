@@ -52,17 +52,17 @@ export class Test {
     const denoVersion = "1.42.1";
     return dag
       .container()
-      .from(`denoland/deno:${denoVersion}`) // Use pinned version
+      .from(`denoland/deno:latest`) // Use pinned version
       .withWorkdir("/srv")
       .withNewFile(
         "main.ts",
         `console.log("Deno server starting on port ${internalPort}...");\n` +
-          `Deno.serve({ port: 4318 }, async (req) => {\n` +
-          `  console.log("Request", req);\n` +
-          `  return new Response(JSON.stringify({ status: "success" }), {\n` +
-          `    status: 200,\n` +
-          `  });\n` +
-          `});\n`,
+        `Deno.serve({ port: 4318 }, async (req) => {\n` +
+        `  console.log("Request", req);\n` +
+        `  return new Response(JSON.stringify({ status: "success" }), {\n` +
+        `    status: 200,\n` +
+        `  });\n` +
+        `});\n`,
       )
       .withExposedPort(4318)
       .asService({
@@ -88,16 +88,32 @@ export class Test {
    */
   @func()
   runDenoService( // Renamed from runDenoServer for consistency
-    src: Directory = dag.currentModule().source().directory("."),
+    src: Directory
   ): Service {
-    // Define the container using the helper
-    const container = this.denoContainer(src);
+    const DENO_VERSION = Deno.env.get("DENO_VERSION") || "2.2.10"; // Or your preferred version
+    const APP_PORT = parseInt(Deno.env.get("APP_PORT") || "8000");
+    // 1. Define the base container with mounts, env vars, and EXPOSED PORT
+    const baseContainer = dag
+      .container()
+      .from(`denoland/deno:${DENO_VERSION}`) // Use specific version
+      .withMountedDirectory("/app", src)         // Mount for hot-reload
+      .withWorkdir("/app")                     // Set context
+      .withEnvVariable("PORT", String(APP_PORT)) // Pass port to your app
+      .withExposedPort(APP_PORT);                // <<< DECLARE port for tunneling
 
-    // Return as a service - Dagger will start it when called with --up
-    console.log(
-      "Deno service defined. Run with 'dagger call run-deno-service --src <dir> --up'",
-    );
-    return container.asService();
+    // 2. Define the EXACT command to run using withExec
+    const executingContainer = baseContainer.withExec([
+      "deno",
+      "run",
+      "--allow-net",
+      "--allow-read",
+      "--allow-env",
+      "--watch", // <<< Deno's watcher will run correctly here
+      "main.ts",
+    ]);
+
+    // 3. Convert to a service. Dagger runs the withExec command AND sets up the tunnel
+    return executingContainer.asService(); // <<< Tunneling happens when this service runs
   }
 
   /**
@@ -236,5 +252,89 @@ export class Test {
       .withWorkdir("/app")
       .withExec(execCmd)
       .stdout();
+  }
+
+
+  @func()
+  serve(
+    /**
+     * Source directory containing the Deno app (e.g., main.ts)
+     * Mounts the project root by default.
+     */
+    source: Directory,
+    /**
+     * Deno version tag (e.g., "latest", "1.40.0")
+     */
+    denoVersion: string = "latest",
+    /**
+     * Port your Deno application listens on internally
+     */
+    appPort: number = 8000,
+  ): Service {
+
+    // Use the official Deno image
+    const denoImage = `denoland/deno:${denoVersion}`
+    console.log(`Using Deno image: ${denoImage}`)
+    console.log(`Application port: ${appPort}`)
+
+    // Deno requires net and read permissions. --watch enables hot reload.
+    const command = [
+      "deno",
+      "run",
+      "--watch",        // Enable Deno's file watcher and restart on change
+      "--allow-net",    // Allow network access for the server
+      "--allow-read",   // Allow reading files (needed for --watch)
+      "main.ts"         // Your main application file
+    ]
+    console.log(`Executing command: ${command.join(" ")}`)
+
+    return dag
+      .container()
+      .from(denoImage)
+      // Mount the *entire* source directory (project root) to /app
+      // This is crucial for --watch to detect changes
+      .withMountedDirectory("/app", source)
+      // Set the working directory inside the container
+      .withWorkdir("/app")
+      // Expose the port Deno.serve is listening on
+      .withExposedPort(appPort)
+      // Define the command to run the Deno server with --watch
+      .withDefaultArgs(command)
+      // Convert the container setup to a runnable service
+      .asService({ useEntrypoint: true })
+  }
+
+  @func()
+  watch(
+    source: Directory,
+    denoVersion: string = "latest",
+    appPort: number = 8000,
+  ): Service {
+    const imageName = `denoland/deno:${denoVersion}`
+    const workDir = "/app"
+    // Define the entrypoint executable
+    const entrypointCmd = ["deno"]
+    // Define the default arguments for the entrypoint
+    const defaultArgs = ["run", "--watch", "-A", "main.ts"] // Corresponds to CMD
+
+    console.log(`Using Deno image: ${imageName}`)
+    console.log(`Internal app port: ${appPort}`)
+    console.log(`Working directory: ${workDir}`)
+    console.log(`Entrypoint: ${entrypointCmd.join(" ")}`)
+    console.log(`Default Args: ${defaultArgs.join(" ")}`)
+
+    return (
+      dag
+        .container()
+        .from(imageName)
+        .withMountedDirectory(workDir, source)
+        .withWorkdir(workDir)
+        .withExposedPort(appPort)
+        // ---- Use withEntrypoint and withDefaultArgs ----
+        .withEntrypoint(entrypointCmd) // Sets ENTRYPOINT
+        .withDefaultArgs(defaultArgs) // Sets CMD (arguments for ENTRYPOINT)
+        // ---------------------------------------------
+        .asService()
+    )
   }
 }

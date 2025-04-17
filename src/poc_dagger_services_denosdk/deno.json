@@ -3,7 +3,6 @@
     "dev": "deno run --watch main.ts"
   },
   "imports": {
-    "@std/assert": "jsr:@std/assert@1",
     "@dagger.io/dagger": "./sdk/src/index.ts",
     "@dagger.io/dagger/telemetry": "./sdk/src/telemetry/index.ts"
   },
