@@ -2,9 +2,12 @@
 {
   "workspace": [
     // Shared remains a member
-    "./src/*" // NOT WORKING
-    // ,"./src/domain_one_with_fresh", // WORKING
-    // "./src/domain_two_wo_fresh" // WORKING
+    // "./src/*" // NOT WORKING
+    "./src/fresh_fields",
+    "./src/fields", // WORKING
+    "./src/fields/*", // WORKING
+    "./src/fields/*/*" // WORKING
+    // "./src/domain_two_wo_fresh/*" // WORKING features
   ],
   "imports": {
     // Shared mapping
@@ -15,6 +18,7 @@
     "@preact/signals-core": "https://esm.sh/*@preact/signals-core@1.5.1",
     "$std/": "https://deno.land/std@0.216.0/",
     "@repo/": "./src/"
+    // "@repo/fresh_fields/": "./src/fresh_fields/"
   },
   "tasks": {
     "start": "deno run --allow-read --allow-net --allow-env main.ts"

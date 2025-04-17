@@ -1,8 +1,8 @@
 
 
-import sharedConfigIntro from "@repo/domain_one_with_fresh/fresh.config.ts"
-import sharedManifestIntro from "@repo/domain_one_with_fresh/fresh.gen.ts"
-import App from "@repo/domain_two_wo_fresh/index.ts"
+import sharedConfigIntro from "@repo/fresh_fields/domain_one_with_fresh/fresh.config.ts"
+import sharedManifestIntro from "@repo/fresh_fields/domain_one_with_fresh/fresh.gen.ts"
+import App from "@repo/fields/domain_two_wo_fresh/index.ts"
 import { createHandler, type ServeHandlerInfo } from "$fresh/server.ts";
 
 console.log("Running wo fresh function from domain two...", App());
