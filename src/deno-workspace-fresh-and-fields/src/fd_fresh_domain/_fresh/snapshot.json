@@ -1,0 +1,25 @@
+{
+  "build_id": "3527485bebe4dffa1756e82673d97c153930db10",
+  "files": {
+    "main.js": [
+      "chunk-XDWU7D76.js",
+      "chunk-7KZRW4CE.js"
+    ],
+    "deserializer.js": [],
+    "signals.js": [
+      "chunk-5TIVV7D3.js",
+      "chunk-7KZRW4CE.js"
+    ],
+    "island-counter.js": [
+      "chunk-XDWU7D76.js",
+      "chunk-5TIVV7D3.js",
+      "chunk-7KZRW4CE.js"
+    ],
+    "chunk-XDWU7D76.js": [],
+    "chunk-5TIVV7D3.js": [
+      "chunk-7KZRW4CE.js"
+    ],
+    "chunk-7KZRW4CE.js": [],
+    "metafile.json": []
+  }
+}
