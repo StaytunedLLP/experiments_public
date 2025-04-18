@@ -1,0 +1,162 @@
+// region Imports
+import { createHandler, type ServeHandlerInfo } from "$fresh/server.ts";
+// import { getEnvVar, setCorsHeaders } from "@root/shared"; // Example of shared utility import
+
+// Import manifests and configurations for different domains/apps
+// TODO: Replace with actual manifest and config imports for your domains
+// import configDomain1 from "@repo/fd_help/fresh.config.ts"; // Example: Config for domain1.com
+// import manifestDomain1 from "@repo/fd_help/fresh.gen.ts"; // Example: Manifest for domain1.com
+// import configBlog from "@repo/fd_blog/fresh.config.ts"; // Example: Config for blog.domain1.com
+// import manifestBlog from "@repo/fd_blog/fresh.gen.ts"; // Example: Manifest for blog.domain1.com
+import configFgf from "@repo/fd_fresh_domain/fresh.config.ts"
+import manifestFgf from "@repo/fd_fresh_domain/fresh.gen.ts"
+//#endregion Imports
+
+//#region Fresh Handler Creation
+// Create Fresh handlers for each domain using their respective manifests and configs.
+// These handlers are responsible for rendering the Fresh application for a specific domain.
+
+// const handlerDomain1 = createHandler(manifestDomain1, configDomain1);
+// const handlerBlog = createHandler(manifestBlog, configBlog); // Example: Blog subdomain
+// const handlerApi = createHandler(manifestApi, configApi); // Example for an API domain
+const handlerFgf = createHandler(manifestFgf, configFgf)
+//#endregion Fresh Handler Creation
+
+//#region Domain to Handler Mapping
+// Define mappings from hostnames to their corresponding Fresh handlers.
+// Separate mappings are provided for production and development environments.
+
+interface DomainHandlers {
+  [hostname: string]: Promise<(
+    req: Request,
+    connInfo: ServeHandlerInfo,
+  ) => Promise<Response>>;
+  
+}
+
+// TODO: Configure your production domain hostnames here
+const productionHandlers: DomainHandlers = {
+//  "staytuned.website": handlerDomain1, // Example: Main website
+  // "help.staytuned.website": handlerHelp, // Example: Help subdomain
+  // "blog.staytuned.website": handlerBlog, // Example: Blog subdomain
+  // "api.staytuned.website": handlerApi, // Example: API subdomain,
+    "fgf.yourdomain.com": handlerFgf, // TODO: Configure hostname
+};
+
+// TODO: Configure your development domain hostnames here (e.g., localhost, testing domains)
+const developmentHandlers: DomainHandlers = {
+//  "localhost": handlerDomain1, // Serve main site on localhost
+  // "help.localhost": handlerHelp, // Serve help site on help.localhost
+  // "blog.localhost": handlerBlog, // Serve blog site on blog.localhost
+  // "api.localhost": handlerApi, // Serve API on api.localhost,
+    "fgf.localhost": handlerFgf, // TODO: Configure hostname
+};
+
+// Determine which set of handlers to use based on an environment variable or deployment context.
+// Defaulting to development handlers for local execution.
+// TODO: Implement logic to switch between production and development handlers based on environment.
+const handlers: DomainHandlers = developmentHandlers; // Or use an env variable: Deno.env.get("ENVIRONMENT") === "production" ? productionHandlers : developmentHandlers;
+
+/**
+ * Retrieves the appropriate Fresh handler based on the request's hostname.
+ * Falls back to a default handler or returns null if no match is found.
+ *
+ * @param {URL} url - The URL of the incoming request.
+ * @returns {Function | null} - The handler function for the corresponding domain, or null if not found.
+ */
+const getHandler = (
+  url: URL,
+): (Promise<(req: Request, connInfo: ServeHandlerInfo) => Promise<Response>>) | null => {
+  return handlers[url.hostname] || null; // Consider adding a default handler or error page
+};
+//#endregion
+
+//#region CORS Handling
+/**
+ * Handles CORS preflight (OPTIONS) requests.
+ * Responds with appropriate CORS headers to allow cross-origin requests.
+ *
+ * @param {Request} req - The incoming request object.
+ * @returns {Response | null} - A response object with CORS headers for OPTIONS requests, otherwise null.
+ */
+const handleCorsPreflight = (req: Request): Response | null => {
+  if (req.method === "OPTIONS") {
+    const origin = req.headers.get("Origin");
+    const headers = new Headers();
+    // TODO: Implement or import your CORS header logic (e.g., using setCorsHeaders)
+    // setCorsHeaders(headers, origin); // Example: Set allowed origins, methods, headers
+    headers.set("Access-Control-Allow-Origin", origin || "*"); // Example: Allow specific origin or wildcard (use with caution)
+    headers.set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    headers.set(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Authorization",
+    );
+    headers.set("Access-Control-Max-Age", "86400"); // Cache preflight response for 1 day
+
+    return new Response(null, {
+      status: 204, // No Content
+      headers,
+    });
+  }
+  return null; // Not a preflight request
+};
+
+/**
+ * Adds CORS headers to the actual response after it's generated by the handler.
+ *
+ * @param {Response} response - The response object generated by the Fresh handler.
+ * @param {string | null} origin - The origin header from the incoming request.
+ * @returns {Response} - The response object with added CORS headers.
+ */
+const addCorsHeadersToResponse = (
+  response: Response,
+  origin: string | null,
+): Response => {
+  const headers = new Headers(response.headers);
+  // TODO: Implement or import your CORS header logic (e.g., using setCorsHeaders)
+  // setCorsHeaders(headers, origin); // Example: Ensure necessary CORS headers are on the final response
+  headers.set("Access-Control-Allow-Origin", origin || "*"); // Match preflight or be more specific if needed
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+};
+//#endregion
+
+//#region Server Initialization and Request Handling
+/**
+ * Main server entry point.
+ * Listens for incoming requests, handles CORS, determines the correct
+ * Fresh handler based on the hostname, invokes the handler, and sends the response.
+ */
+Deno.serve({ port: 5500 }, async (req, info) => { // TODO: Make port configurable (e.g., via environment variable)
+  // 1. Handle CORS Preflight Requests
+  const corsResponse = handleCorsPreflight(req);
+  if (corsResponse) {
+    return corsResponse;
+  }
+
+  // 2. Determine the Correct Handler
+  const url = new URL(req.url);
+  const handler = await getHandler(url);
+
+  if (!handler) {
+    // Optional: Handle cases where no handler matches the hostname
+    return new Response("Not Found", { status: 404 });
+  }
+
+  // 3. Invoke the Fresh Handler
+  const response = await handler(req, info);
+
+  // 4. Add CORS Headers to the Response
+  const origin = req.headers.get("Origin");
+  return addCorsHeadersToResponse(response, origin);
+});
+
+console.log("Server listening on http://localhost:5500");
+// Add logs for other configured development domains if applicable
+// console.log("Help server potentially available at http://help.localhost:5500");
+// console.log("Blog server potentially available at http://blog.localhost:5500");
+//#endregion
