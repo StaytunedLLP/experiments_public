@@ -1,12 +1,12 @@
 {
   "workspace": [
     // Option 1: Dynamic workspace discovery (supports multiple package versions)
-    // Note: May generate TypeScript errors that need to be ignored (esbuild WorkspaceDiscoverError)
+    // Note: May generate TypeScript errors that need cannot to be ignored (esbuild WorkspaceDiscoverError) Build fails
     // "./*/*",
     // "./*/*/*",
     // "./*/*/*/*",
     // "./*/*/*/*/*",
-    // "./*/*/*/*/*/*",
+    // "./*/*/*/*/*/*"
 
     // Option 2: Explicit workspace paths (recommended)
     // Prevents esbuild WorkspaceDiscoverError
