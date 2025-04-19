@@ -5,12 +5,23 @@ import {
   object,
   type Service,
 } from "@dagger.io/dagger";
+import { getTracer } from "../sdk/src/telemetry/telemetry.ts";
 
 @object()
 export class Test {
 
+  @func()
+  async foo(source: Directory): Promise<Service> {
+    const tracer = getTracer()
+    const service = await this.serve(source);
+    await tracer.startActiveSpan("example", async () => {
+      service.
+    })
+    return service;
+  }
 
   @func()
+
   serve(
     /**
      * Source directory containing the Deno app (e.g., main.ts)

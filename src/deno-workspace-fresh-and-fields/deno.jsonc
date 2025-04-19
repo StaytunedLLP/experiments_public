@@ -7,12 +7,11 @@
     // "./*/*/*/*",
     // "./*/*/*/*/*",
     // "./*/*/*/*/*/*"
-
     // Option 2: Explicit workspace paths (recommended)
     // Prevents esbuild WorkspaceDiscoverError
     // Requires deno.json in each specified directory
-    "./src/fd_fresh_domain", 
-    "./src/fd_fresh_domain/fe_random", 
+    "./src/fd_fresh_domain",
+    "./src/fd_fresh_domain/fe_random",
     "./src/fd_domain2",
     "./src/fd_domain1/fe_one",
     "./src/fd_domain1/fe_one/sy_one",
